@@ -1,0 +1,57 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8.0.39
+    env_file: "./docker-compose-env/database.env"
+    ports:
+      - "33061:3306"
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./database/init.sql:/data/application/init.sql
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s      # Kiểm tra sức khỏe mỗi 10 giây
+      timeout: 5s        # Thời gian chờ 5 giây cho mỗi kiểm tra
+      retries: 5         # Thử lại 5 lần
+      start_period: 30s 
+  backend:
+    env_file:
+      - path: "./docker-compose-env/backend.app.env"
+    build:
+      dockerfile: Dockerfile
+      context: backend
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+
+  nginx:
+    restart: always
+    depends_on:
+      - backend
+      - frontend
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql_data: {}  # Thêm volume để lưu trữ dữ liệu của MySQL
+
