@@ -62,9 +62,9 @@ jobs:
       - name: Build & Push MySQL Image
         uses: docker/build-push-action@v5
         with:
-          context: ./mysql
-          file: ./mysql/Dockerfile
+          context: ./database
+          file: ./database/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/fcj-mysql-init:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/fcj-resbar-mysql:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
