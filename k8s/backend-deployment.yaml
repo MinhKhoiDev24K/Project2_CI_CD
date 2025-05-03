@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: minhkhoi24k/fcj-resbar-backend:latest
+          image: minhkhoi24k/fcj-backend:latest
           ports:
             - containerPort: 5000
           env:

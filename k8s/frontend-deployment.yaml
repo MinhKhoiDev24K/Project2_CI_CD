@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: minhkhoi24k/fcj-resbar-frontend:latest
+          image: minhkhoi24k/fcj-frontend:latest
           ports:
             - containerPort: 5173
 ---
