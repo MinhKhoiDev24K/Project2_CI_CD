@@ -16,6 +16,7 @@ spec:
       containers:
         - name: nginx
           image: minhkhoi24k/fcj-nginx:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---

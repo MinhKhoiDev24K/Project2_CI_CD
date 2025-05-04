@@ -16,6 +16,7 @@ spec:
       containers:
         - name: frontend
           image: minhkhoi24k/fcj-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5173
 ---
