@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: frontend
   namespace: fcj
+  annotations:
+    kubectl.kubernetes.io/restartedAt: "2024-01-01T00:00:00Z"  # Placeholder, sẽ được tự động cập nhật
 spec:
   replicas: 1
   selector:

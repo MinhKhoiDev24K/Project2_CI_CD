@@ -53,5 +53,5 @@ services:
       - "3000:80"
 
 volumes:
-  mysql_data: {}  # Thêm volume để lưu trữ dữ liệu của MySQL
+  mysql_data: {}  
 
